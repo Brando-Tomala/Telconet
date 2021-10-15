@@ -17,5 +17,6 @@ services:
       - SPRING_DATASOURCE_USERNAME=telco
       - SPRING_DATASOURCE_PASSWORD=telconet
     volumes:
+      - ../management-micro/src/main/resources:/app/config
       - ../logs:/app/logs
 
