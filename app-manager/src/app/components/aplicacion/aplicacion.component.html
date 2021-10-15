@@ -1,0 +1,79 @@
+<div style="margin-top: 1rem">
+  <p-table [value]="apps">
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let item of header">{{ item }}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-apps>
+      <tr>
+        <td>{{ apps.id }}</td>
+        <td>{{ apps.aplicacion }}</td>
+        <td>
+          <p-dropdown [options]="apps.rol" optionLabel="rol"></p-dropdown>
+        </td>
+        <td>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-pencil"
+            class="p-button-info p-button-rounded p-button-outlined"
+            style="margin-right: 0.4rem"
+            (click)="popup(apps)"
+          ></button>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-trash"
+            class="p-button-danger p-button-rounded p-button-outlined"
+            (click)="deleteApp(apps.id)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p-dialog
+    header="Editar Usuario"
+    [modal]="true"
+    [(visible)]="display"
+    [style]="{ width: '20vw' }"
+  >
+    <div>
+      <div>
+        <div style="padding-top: 0.5rem">
+          <span class="p-float-label">
+            <input
+              id="float-input"
+              type="text"
+              pInputText
+              style="width: 100%"
+              [(ngModel)]="appForm.aplicacion"
+            />
+            <label for="float-input">Aplicacion</label>
+          </span>
+        </div>
+        <div>
+          <div *ngFor="let rol of rols" class="p-field-checkbox">
+            <p-checkbox
+              name="group2"
+              value="rol"
+              [value]="rol"
+              [(ngModel)]="rolInput"
+              [inputId]="rol.id"
+            ></p-checkbox>
+            <label [for]="rol.id">{{ rol.rol }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <p-button
+        icon="pi pi-check"
+        (click)="updateApp()"
+        label="Guardar"
+        class="p-button-rounded p-button-outlined"
+      ></p-button>
+    </ng-template>
+  </p-dialog>
+</div>

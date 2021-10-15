@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="trace" monitorInterval="30" >
+	<Properties>
+		<Property name="log-path">/app/logs</Property>
+	</Properties>
+	<Appenders>
+		<RollingFile name="ManagementLogger" fileName="${log-path}/telco-management.log"
+					 filePattern="${log-path}/telco-management-%d{yyyy-MM-dd}.log" >
+			<PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} - ID: %X{sid} - Class: %c{1} - Message: %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+										   modulate="true" />
+				<SizeBasedTriggeringPolicy size="300MB"/>
+			</Policies>
+			<DefaultRolloverStrategy>
+				<Delete basePath="/app/logs" maxDepth="1">
+					<IfFileName glob="*telco-management*" />
+					<IfLastModified age="2d"/>
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+		<RandomAccessFile name="file-log" fileName="${log-path}/telco-management.log" immediateFlush="true" append="true">
+			<PatternLayout>
+				<Pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} - ID: %X{sid} - Class: %c{1} - Message: %msg%n</Pattern>
+			</PatternLayout>
+		</RandomAccessFile>
+	</Appenders>
+	<Loggers>
+		<Root name="io.telconet.app" level="INFO" includeLocation="false">
+			<AppenderRef ref="ManagementLogger"/>
+		</Root>
+	</Loggers>
+</Configuration>

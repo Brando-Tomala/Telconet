@@ -1,0 +1,117 @@
+<div style="margin-top: 1rem">
+  <p-table [value]="usuarios">
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let item of header">{{ item }}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-usuarios>
+      <tr>
+        <td>{{ usuarios.nombre }}</td>
+        <td>{{ usuarios.apellido }}</td>
+        <td>{{ usuarios.correo }}</td>
+        <td>{{ usuarios.celular }}</td>
+        <td>{{ usuarios.direccion }}</td>
+        <td>{{ usuarios.fechaNacimiento }}</td>
+        <td>
+          <p-dropdown [options]="usuarios.roles" optionLabel="rol"></p-dropdown>
+        </td>
+        <td>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-pencil"
+            class="p-button-info p-button-rounded p-button-outlined"
+            style="margin-right: 0.4rem"
+            (click)="popup(usuarios)"
+          ></button>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-trash"
+            class="p-button-danger p-button-rounded p-button-outlined"
+            (click)="deleteUser(usuarios.id)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p-dialog
+    header="Editar Usuario"
+    [modal]="true"
+    [(visible)]="display"
+    [style]="{ width: '20vw' }"
+  >
+    <div>
+      <div style="padding-top: 0.5rem">
+        <span class="p-float-label">
+          <input
+            id="float-input"
+            type="text"
+            pInputText
+            style="width: 100%"
+            [(ngModel)]="usuarioForm.nombre"
+          />
+          <label for="float-input">Nombre</label>
+        </span>
+      </div>
+      <div style="padding-top: 0.5rem">
+        <span class="p-float-label">
+          <input
+            id="float-input"
+            type="text"
+            pInputText
+            style="width: 100%"
+            [(ngModel)]="usuarioForm.apellido"
+          />
+          <label for="float-input">Apellido</label>
+        </span>
+      </div>
+      <div style="padding-top: 0.5rem">
+        <span class="p-float-label">
+          <input
+            id="float-input"
+            type="text"
+            pInputText
+            style="width: 100%"
+            [(ngModel)]="usuarioForm.celular"
+          />
+          <label for="float-input">Celular</label>
+        </span>
+      </div>
+      <div style="padding-top: 0.5rem">
+        <span class="p-float-label">
+          <input
+            id="float-input"
+            type="text"
+            pInputText
+            style="width: 100%"
+            [(ngModel)]="usuarioForm.direccionDomicilio"
+          />
+          <label for="float-input">Direccion domicilio</label>
+        </span>
+      </div>
+      <div>
+        <div *ngFor="let rol of rols" class="p-field-checkbox">
+          <p-checkbox
+            name="group2"
+            value="rol"
+            [value]="rol"
+            [(ngModel)]="rolInput"
+            [inputId]="rol.id"
+          ></p-checkbox>
+          <label [for]="rol.id">{{ rol.rol }}</label>
+        </div>
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <p-button
+        icon="pi pi-check"
+        (click)="updateUser()"
+        label="Actualizar"
+        class="p-button-rounded p-button-outlined"
+      ></p-button>
+    </ng-template>
+  </p-dialog>
+</div>

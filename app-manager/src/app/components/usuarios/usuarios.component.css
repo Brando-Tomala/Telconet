@@ -1,0 +1,5 @@
+.texto-corto {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  

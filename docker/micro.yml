@@ -1,0 +1,21 @@
+version: '3'
+services:
+  telco-management:
+    container_name: telco-management
+    image: telco-management:v1
+    build: ../management-micro/
+    ports:
+      - "8090:8090"
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgre-telco:5432/telconet-management
+      - SPRING_DATASOURCE_USERNAME=telco
+      - SPRING_DATASOURCE_PASSWORD=telconet
+    volumes:
+      - ../logs:/app/logs
+

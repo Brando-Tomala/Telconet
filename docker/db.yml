@@ -1,0 +1,17 @@
+version: '3'
+services:
+  postgre-telco:
+    container_name: postgre-telco
+    image: postgres:13.4-alpine    
+    ports:
+      - "5454:5432"
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+    environment:
+      - POSTGRES_PASSWORD=telconet
+      - POSTGRES_USER=telco
+      - POSTGRES_DB=telconet-management
